@@ -39,8 +39,9 @@ public class DLLQueue<T> {
      * method to insert an element into back of queue
      * @param data the element to be added into the queue
      */
-    public void enqueue(T data) {
-        queue.add(queue.size() -1, data);
+    public void enqueue(T data) throws IllegalArgumentException {
+        if (data == null) throw new IllegalArgumentException();
+        queue.add(data);
     }
 
     /**
@@ -48,14 +49,20 @@ public class DLLQueue<T> {
      * @return the element that was removed
      */
     public T dequeue() {
-        return queue.remove(0);
+        if(queue.size() ==0) return null;
+        else {
+            return queue.remove(0);
+        }
     }
     /**
      * method that shows which element is at the front of the queue
      * @return the data from the element at the front
      */
     public T peek() {
-        return queue.get(0);
+        if(queue.size() ==0) return null;
+        else {
+            return queue.get(0);
+        }
     }
 
 }

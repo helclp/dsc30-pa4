@@ -38,10 +38,11 @@ public class DLLStack<T> {
     }
 
     /**
-     * method to add an element to top of stack
+     method to add an element to top of stack
      * @param data the element to be added into the stack
      */
-    public void push(T data) {
+    public void push(T data) throws IllegalArgumentException {
+        if (data == null) throw new IllegalArgumentException();
         stack.add(data);
     }
 
@@ -50,7 +51,10 @@ public class DLLStack<T> {
      * @return the element that was removed
      */
     public T pop() {
-        return stack.remove(size()-1);
+        if(stack.size() ==0) return null;
+        else {
+            return stack.remove(size() - 1);
+        }
     }
 
     /**
@@ -58,7 +62,10 @@ public class DLLStack<T> {
      * @return the data from the element at the top
      */
     public T peek() {
-        return stack.get(size()-1);
+        if(stack.size() ==0) return null;
+        else {
+            return stack.get(size() - 1);
+        }
     }
 
 }
