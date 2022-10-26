@@ -42,7 +42,7 @@ public class RoundRobin {
         waitlist = new DoublyLinkedList<>();
         finished = new DoublyLinkedList<>();
 
-        for (int i =0; i < toHandle.length; i++){
+        for (int i =0; i < toHandle.length; i++){ // manually adds each task into waitlist
             waitlist.add(toHandle[i]);
         }
     }
@@ -58,24 +58,24 @@ public class RoundRobin {
 
         Task currentTask;
 
-        while (waitlist.size() > 0){
+        while (waitlist.size() > 0){ //keeps iterating till waitlist empty
 
             currentTask = waitlist.get(0);
 
-            for(int i =0; i < quantum; i++){
-                currentTask.handleTask();
+            for(int i =0; i < quantum; i++){ //implements handletaks on each Task, quantum # of
+                currentTask.handleTask(); // times. updates burst and waitTime respectively
                 burstTime +=1;
                 waitTime += waitlist.size()-1;
 
-                if(currentTask.isFinished()){
-                    finished.add(currentTask);
+                if(currentTask.isFinished()){ // moves task to waitlist if remaining time of taks
+                    finished.add(currentTask); // is 0
                     waitlist.remove(0);
                     break;
                 }
             }
 
-            if(!currentTask.isFinished()){
-                waitlist.remove(0);
+            if(!currentTask.isFinished()){ // if task has time remaining it is moved to back of
+                waitlist.remove(0); // waitlist
                 waitlist.add(currentTask);
             }
 
@@ -83,16 +83,16 @@ public class RoundRobin {
 
         String finishedString = "";
         Task taskHolder;
-        for(int k = 0; k < finished.size(); k++){
-            taskHolder = finished.get(k);
-            finishedString += taskHolder.toString();
+        for(int k = 0; k < finished.size(); k++){ // loops through finished DLL and gets
+            taskHolder = finished.get(k); // string info from each teach to format for
+            finishedString += taskHolder.toString(); // string in return format
             if(k != finished.size()-1){
                 finishedString += " -> ";
             }
         }
         String burstString = String.valueOf(burstTime);
         String waitString = String.valueOf(waitTime);
-
+        // all parts are concatenated below to be returned in proper format
         return "All tasks are handled within " + burstString + " units of burst time and " +
                 waitString + " units of wait time. The tasks are finished in this order: \n"+
                 finishedString;
